@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <title>courses web-app</title>
 
-<head>
-  <meta charset="utf-8" />
-  <title>courses web-app</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./app/actions.js"></script>
+    <script src="./app/views.js"></script>
+    <script type="module">
+      import { init } from "./app/init.js";
+      window.onload = init;
+    </script>
+  </head>
 
-  <link rel="stylesheet" href="./style.css">
+  <body>
+    <input id="name" name="name" placeholder="course name" />
+    <input id="courseId" name="courseId" placeholder="course id" />
+    <button id="save-button">add course</button>
+    <button id="update-button">update course</button>
+    <button id="delete-button">delete course</button>
 
-  <script type="module">
-    import { init } from './app/init.js'
-    window.onload = init;
-  </script>
-</head>
+    <details open>
+      <summary>courses JSON entries </summary>
 
-<body>
-
-</body>
-
+      <div id="container"></div>
+    </details>
+  </body>
 </html>
