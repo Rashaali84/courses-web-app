@@ -23,7 +23,7 @@ Building this site one step at a time
 
 ## 3. User Story: List courses
 
--`client/controller.js` list all courses from db .
+-`api/controller.js` list all courses from db .
 
 ## 4. User Story: Update a course
 
