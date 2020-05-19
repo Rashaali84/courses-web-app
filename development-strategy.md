@@ -19,7 +19,7 @@ Building this site one step at a time
 
 ## 2. User Story: Add a course
 
--`client/controller.js` add a course to the db.
+-`api/controller.js` add a course to the db.
 
 ## 3. User Story: List courses
 
@@ -27,8 +27,8 @@ Building this site one step at a time
 
 ## 4. User Story: Update a course
 
--`client/controller.js` update a course in courses.json.
+-`api/controller.js` update a course in courses.json.
 
 ## 5. User Story: Delete a course
 
--`client/controller.js` delete a course from courses.json.
+-`api/controller.js` delete a course from courses.json.
