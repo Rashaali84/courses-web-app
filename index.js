@@ -29,7 +29,15 @@ app.use(morgan('combined', {
 if (config.MODE === 'development') {
   app.use(morgan('dev'));
 };
+app.use(function (req, res, next) {
 
+  res.header("Access-Control-Allow-Origin", "*");
+
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+  next();
+
+});
 app.use('/', express.static(path.join(__dirname, 'client')));
 
 app.use('/api', api);
@@ -38,7 +46,10 @@ app.use(function (err, req, res, next) {
   console.error(err.stack);
   res.status(500).end();
 });
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'index.html'));
 
+});
 app.listen(config.PORT, () => {
   console.log(
     `listening at http://localhost:${config.PORT} (${config.MODE} mode)`
