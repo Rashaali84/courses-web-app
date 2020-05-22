@@ -6,12 +6,20 @@ export const init = () => {
       if (!res.ok) {
         throw res;
       }
+      console.log(res);
       return res.json();
     })
     .then(records => {
       const container = document.getElementById('container');
-      container.innerHTML = JSON.stringify(records);
-      if (records.length > 0) {
+      console.log(records);
+
+      if (records.length > 1) {
+        records.forEach(element => {
+          container.innerHTML += '<li>' + JSON.stringify(element) + '</li>';
+        })
+      } else { container.innerHTML = JSON.stringify(records); }
+
+      if (records.length <= 0) {
         container.innerHTML = 'No entries yet stored in db..';
       }
     })

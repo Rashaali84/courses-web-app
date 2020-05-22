@@ -6,7 +6,9 @@ const saveCourse = (courseName) => {
             'Content-type': 'application/json; charset=UTF-8',
         },
     })
-        .then(() => {
+        .then((res) => {
+            if (res.status === 404)
+                throw err;
             alert('your changes are saved');
         })
         .then(() => { location.reload(); })
@@ -23,7 +25,9 @@ const updateCourse = (courseName, courseId) => {
             'Content-type': 'application/json; charset=UTF-8',
         },
     })
-        .then(() => {
+        .then((res) => {
+            if (res.status === 404)
+                throw err;
             alert('your changes are updates');
         })
         .then(() => { location.reload(); })
@@ -36,7 +40,9 @@ const deleteCourse = (courseId) => {
     fetch('/api/courses/' + courseId, {
         method: 'DELETE',
     })
-        .then(() => {
+        .then((res) => {
+            if (res.status === 404)
+                throw err;
             alert('entry is deleted');
         })
         .then(() => { location.reload(); })

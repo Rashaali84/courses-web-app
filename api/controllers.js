@@ -54,10 +54,15 @@ const controllers = {
     }
     readFile(DATA_DIR, 'utf-8')
       .then((contents) => {
-        let obj = JSON.parse(contents); //now it an object
-        console.log(contents);
-        obj[Object.keys(obj).length + 1] = req.body.name; //add some data
-        let json = JSON.stringify(obj); //convert it back to json
+
+        let parsedContent = JSON.parse(contents); //now it an object
+        console.log(parsedContent.courses);
+        const course = {
+          id: parsedContent.courses.length + 1,
+          name: req.body.name
+        };
+        parsedContent.courses.push(course);
+        let json = JSON.stringify(parsedContent); //convert it back to string
 
         writeFile(DATA_DIR, json, 'utf8')
           .then(() => { res.status(200).send('addition is done successfully..') })
@@ -66,6 +71,7 @@ const controllers = {
           });
       })
       .catch((err) => res.status(404).send(err));
+
   },
 
   updateCourse: (req, res) => {
@@ -77,8 +83,9 @@ const controllers = {
     readFile(DATA_DIR, 'utf-8')
       .then((contents) => {
         const parsedContent = JSON.parse(contents);
-        if (parsedContent[req.params.id]) {
-          parsedContent[req.params.id] = req.body.name;
+        const course = parsedContent.courses.find(c => c.id === parseInt(req.params.id));
+        if (course) {
+          course.name = req.body.name;
           let json = JSON.stringify(parsedContent); //convert it back to json
           writeFile(DATA_DIR, json, 'utf8')
             .then(() => { res.send('update is done successfully..') })
@@ -97,9 +104,10 @@ const controllers = {
     readFile(DATA_DIR, 'utf-8')
       .then((contents) => {
         const parsedContent = JSON.parse(contents);
-
-        if (parsedContent[req.params.id]) {
-          delete parsedContent[req.params.id];
+        const course = parsedContent.courses.find(c => c.id === parseInt(req.params.id));
+        if (course) {
+          const index = parsedContent.courses.indexOf(course);
+          parsedContent.courses.splice(index, 1);
           console.log(parsedContent);
           const toWrite = JSON.stringify(parsedContent, null, '  ');
           //now write the data again
@@ -109,6 +117,9 @@ const controllers = {
               res.status(404).send(err);
               res.send(parsedContent);
             })
+        }
+        else {
+          throw err;
         }
       })
       .catch((err) => {
